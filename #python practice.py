@@ -60,3 +60,10 @@ while count < 5:
     count+=1
     if(count == 4):
         break
+
+count_2 = 0
+while True:
+    print(count_2)
+    count_2+=2
+    if count_2 >= 14:
+        break
