@@ -1,4 +1,4 @@
-# Arduino_Projects
+# Fun_Projects
 Arduino Tank Code
 
-Code for a couple of my arduino projects...
+This is just random and fun code that I've written recently. 
