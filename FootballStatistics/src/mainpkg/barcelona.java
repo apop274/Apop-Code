@@ -1,233 +1,262 @@
-package snakeGamePackage;
-
+package mainpkg;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.Component;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Panel;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.Random;
-
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
-public class GamePanel extends JPanel implements ActionListener{
+
+public class barcelona implements ActionListener{
 	
-	static final int SCREEN_WIDTH = 600;
-	static final int SCREEN_HEIGHT = 600;
-	static final int UNIT_SIZE = 25;
-	static final int GAME_UNITS = (SCREEN_WIDTH*SCREEN_HEIGHT)/UNIT_SIZE;
-	static final int DELAY = 75;
-	final int x[] = new int[GAME_UNITS];
-	final int y[] = new int[GAME_UNITS];
-	int bodyParts = 7;
-	int applesEaten;
-	int appleX;
-	int appleY;
-	char direction = 'R';
-	boolean running = false;
-	Timer timer;
-	Random random;
-	
-	
-	GamePanel(){
-		random = new Random();
-		this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-		this.setBackground(Color.black);
-		this.setFocusable(true);
-		this.addKeyListener(new MyKeyAdapter());
-		startGame();
-	
+	private static JPanel panel;
+	private static JFrame frame;
+	private static Color menuCol;
+	private static JButton startButton;
+	private static JLabel menuLabel;
+	private static JLabel nameLabel;
+
+	public static void main(String[] args) {
+		
+		menuCol = new Color(176, 83, 92);
+
+		panel = new JPanel();
+		frame = new JFrame();
+		
+		frame.setSize(1300, 800);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.add(panel);
+		
+		panel.setLayout(null);
+		panel.setBackground(menuCol);
+		
+		startButton = new JButton("Start");
+		startButton.setBounds(562, 500, 80, 25);
+		startButton.addActionListener(new barcelona());
+		panel.add(startButton);
+		
+		
+		menuLabel = new JLabel("Football Statistics");
+		menuLabel.setBounds(483, 20, 300, 70);
+		menuLabel.setFont(new Font("Serif", Font.PLAIN, 40));
+		panel.add(menuLabel);
+		
+		nameLabel = new JLabel("Aleksandr Khachatryan");
+		nameLabel.setBounds(1133, 730, 140, 20);
+		panel.add(nameLabel);
+		
+		frame.setVisible(true);
+		
+
 	}
-	
-	public void startGame() {
-		newApple();
-		running = true;
-		timer = new Timer(DELAY, this);
-		timer.start();
-		
-		
-	}
-	
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		draw(g);
-	}
-	
-	public void draw(Graphics g) {
-		
-		if(running) {
-			for(int i = 0; i < SCREEN_HEIGHT/UNIT_SIZE; i++) {
-				g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
-				g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
-			}
-		
-			g.setColor(Color.red);
-			g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
-		
-			for(int i = 0; i < bodyParts; i++) {
-				if(i == 0) {
-					g.setColor(Color.green);
-					g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-				}
-				else {
-					
-					g.setColor(new Color(45, 180, 0));
-					g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-				}
-				if(applesEaten >= 17) {
-					g.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
-					g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
-				}
-			}
-			
-			g.setColor(Color.red);
-			g.setFont(new Font("Ink Free", Font.BOLD, 20));
-			FontMetrics fontMetrics = getFontMetrics(g.getFont());
-			g.drawString("Score: " + applesEaten,((SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + applesEaten))/2) + 250, g.getFont().getSize());
-		}
-		else {
-			gameOver(g);
-		}
-	}
-	public void newApple() {
-		appleX = random.nextInt((int)(SCREEN_WIDTH/UNIT_SIZE))*UNIT_SIZE;
-		appleY = random.nextInt((int)(SCREEN_HEIGHT/UNIT_SIZE))*UNIT_SIZE;
-	}
-	
-	public void move() {
-		for(int i = bodyParts; i > 0; i--) {
-			x[i] = x[i-1];
-			y[i] = y[i-1];
-		}
-		
-		switch(direction) {
-		case 'U': 
-			y[0] = y[0] - UNIT_SIZE;
-		break;
-		
-		case 'D': 
-			y[0] = y[0] + UNIT_SIZE;
-		break;
-		
-		case 'L': 
-			x[0] = x[0] - UNIT_SIZE;
-		break;
-		
-		case 'R': 
-			x[0] = x[0] + UNIT_SIZE;
-		break;
-		
-		}
-		
-	}
-	public void checkApple() {
-		if((x[0] == appleX) && (y[0] ==  appleY)) {
-			bodyParts++;
-			applesEaten++;
-			newApple();
-		}
-	}
-	
-	public void checkCollisions() {
-		//checks if head collides with body
-		for(int i = bodyParts; i > 0; i--) {
-			if((x[0] == x[i]) && (y[0] == y[i])) {
-				running = false;
-				
-			}
-		}
-		//checks if head touches left border
-		if(x[0] < 0) {
-			running = false;
-		}
-		//checks if head touches right border
-		if(x[0] > SCREEN_WIDTH) {
-			running = false;
-		}
-		//checks if head touches top border
-		if(y[0] < 0) {
-			running = false;
-		}
-		//checks if had touches bottom border
-		if(y[0] > SCREEN_HEIGHT) {
-			running = false;
-		}
-		
-		if(!running) {
-			timer.stop();
-		}
-		
-	}
-	
-	public void gameOver(Graphics g) {
-		//gameOver text
-		g.setColor(Color.red);
-		g.setFont(new Font("Ink Free", Font.BOLD, 75));
-		FontMetrics fontMetrics = getFontMetrics(g.getFont());
-		g.drawString("Game Over",(SCREEN_WIDTH - fontMetrics.stringWidth("Game Over"))/2 , SCREEN_HEIGHT/2);
-		
-		g.setColor(Color.red);
-		g.setFont(new Font("Ink Free", Font.BOLD, 20));
-		fontMetrics = getFontMetrics(g.getFont());
-		g.drawString("Score: " + applesEaten,((SCREEN_WIDTH - fontMetrics.stringWidth("Score: " + applesEaten))/2) + 250, g.getFont().getSize());
-		
-		
-		
-		
-	}
- 	
-	
-	
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(running) {
-			move();
-			checkApple();
-			checkCollisions();
-		}
-		repaint();
+		JFrame teamFrame = new JFrame();
+		JPanel teamPanel = new JPanel();
 		
+		teamFrame.setSize(1300, 800);
+		teamFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		teamFrame.add(teamPanel);
 		
-	}
+		teamPanel.setLayout(null);
+		teamPanel.setBackground(Color.blue);
+		
+		JLabel teamPanelLabel = new JLabel("Choose your team:");
+		teamPanelLabel.setBounds(450, -50, 450, 250);
+		teamPanelLabel.setFont(new Font("Serif Bold", Font.BOLD, 35));
+		teamPanel.add(teamPanelLabel);
+		
+		ImageIcon barca_img = new ImageIcon(getClass().getResource("/mainpkg/barcaLogo.png"));
+		JLabel barcaImgLabel = new JLabel(barca_img);
+		barcaImgLabel.setBounds(7, 250, 297, 300);
+		teamPanel.add(barcaImgLabel);
+		
+		JButton barcaButton = new JButton("F.C. Barcelona");
+		barcaButton.setBounds(43, 600, 200, 25);
+		teamPanel.add(barcaButton);
 	
-	public class MyKeyAdapter extends KeyAdapter{
-		@Override
-		public void keyPressed(KeyEvent e) {
-			switch(e.getKeyCode()) {
-			case KeyEvent.VK_LEFT: 
-				if(direction != 'R') {
-					direction = 'L';
-				}
-				break;
+		//barcelona lineup
+		barcaButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame barcaFrame = new JFrame();
+				JPanel barcaPanel = new JPanel();
+				Color barcaPanelColor = new Color(228, 15, 15);
 				
-			case KeyEvent.VK_RIGHT: 
-				if(direction != 'L') {
-					direction = 'R';
-				}
-				break;
+				barcaFrame.setSize(1300, 800);
+				barcaFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				barcaFrame.add(barcaPanel);
+				barcaPanel.setLayout(null);
+				barcaPanel.setBackground(barcaPanelColor);
 				
-			case KeyEvent.VK_UP: 
-				if(direction != 'D') {
-					direction = 'U';
-				}
-				break;
+				ImageIcon img = new ImageIcon(getClass().getResource("/mainpkg/barcaLogo.png"));
+				JLabel imgLabel = new JLabel(img);
+				imgLabel.setBounds(100, 250, 297, 300);
+				barcaPanel.add(imgLabel);
 				
-			case KeyEvent.VK_DOWN: 
-				if(direction != 'U') {
-					direction = 'D';
-				}
-				break;
+				JLabel barcaLogoText = new JLabel("F.C. Barcelona");
+				barcaLogoText.setBounds(183, 440, 300, 300);
+				barcaLogoText.setFont(new Font("Serif Bold", Font.BOLD, 20));
+				barcaPanel.add(barcaLogoText);
+				
+				JLabel barcaManager = new JLabel("Manager: Xavi Hernandez");
+				barcaManager.setBounds(109, -55, 400, 200);
+				barcaManager.setFont(new Font("Serif Bold", Font.BOLD, 20));
+				barcaPanel.add(barcaManager);
+				
+				ImageIcon xavi = new ImageIcon(getClass().getResource("/mainpkg/xavi.png"));
+				JLabel xaviLabel = new JLabel(xavi);
+				xaviLabel.setBounds(75, -25, 297, 300);
+				barcaPanel.add(xaviLabel);
+				
+				ImageIcon lewandowski = new ImageIcon(getClass().getResource("/mainpkg/lewandowski.png"));
+				JLabel lewiLabel = new JLabel(lewandowski);
+				lewiLabel.setBounds(800, -45, 297, 300);
+				barcaPanel.add(lewiLabel);
+				
+				ImageIcon torres = new ImageIcon(getClass().getResource("/mainpkg/torres.png"));
+				JLabel torresLabel = new JLabel(torres);
+				torresLabel.setBounds(550, -5, 297, 300);
+				barcaPanel.add(torresLabel);
+				
+				ImageIcon raphinha = new ImageIcon(getClass().getResource("/mainpkg/raphinha.png"));
+				JLabel raphiLabel = new JLabel(raphinha);
+				raphiLabel.setBounds(1053, -5, 297, 300);
+				barcaPanel.add(raphiLabel);
+				
+				ImageIcon gavi = new ImageIcon(getClass().getResource("/mainpkg/gavi.png"));
+				JLabel gaviLabel = new JLabel(gavi);
+				gaviLabel.setBounds(670, 160, 297, 300);
+				barcaPanel.add(gaviLabel);
+				
+				ImageIcon frankie = new ImageIcon(getClass().getResource("/mainpkg/frankie.png"));
+				JLabel frankieLabel = new JLabel(frankie);
+				frankieLabel.setBounds(920, 160, 297, 300);
+				barcaPanel.add(frankieLabel);
+				
+				ImageIcon busquets = new ImageIcon(getClass().getResource("/mainpkg/busquets.png"));
+				JLabel busqLabel = new JLabel(busquets);
+				busqLabel.setBounds(800, 255, 297, 300);
+				barcaPanel.add(busqLabel);
+				
+				ImageIcon christ = new ImageIcon(getClass().getResource("/mainpkg/christensen.png"));
+				JLabel christLabel = new JLabel(christ);
+				christLabel.setBounds(670, 380, 297, 300);
+				barcaPanel.add(christLabel);
+				
+				ImageIcon eric = new ImageIcon(getClass().getResource("/mainpkg/ericgarcia.png"));
+				JLabel ericLabel = new JLabel(eric);
+				ericLabel.setBounds(920, 380, 297, 300);
+				barcaPanel.add(ericLabel);
+				
+				ImageIcon kounde = new ImageIcon(getClass().getResource("/mainpkg/kounde.png"));
+				JLabel koundeLabel = new JLabel(kounde);
+				koundeLabel.setBounds(1053, 320, 297, 300);
+				barcaPanel.add(koundeLabel);
+				
+				ImageIcon alba = new ImageIcon(getClass().getResource("/mainpkg/alba.png"));
+				JLabel albaLabel = new JLabel(alba);
+				albaLabel.setBounds(550, 320, 297, 300);
+				barcaPanel.add(albaLabel);
+				
+				ImageIcon ter = new ImageIcon(getClass().getResource("/mainpkg/terstegan.png"));
+				JLabel terLabel = new JLabel(ter);
+				terLabel.setBounds(800, 520, 297, 300);
+				barcaPanel.add(terLabel);
+				
+				barcaFrame.setVisible(true);
+				teamFrame.setVisible(false);
+				frame.setVisible(false);
+				
 			}
-		}
+
+			
+		});
+		//barcelona lineup
+		
+		
+		JButton mancityButton = new JButton("Manchester City F.C.");
+		mancityButton.setBounds(510, 600, 200, 25);
+		teamPanel.add(mancityButton);
+		
+		ImageIcon mancityIcon = new ImageIcon(getClass().getResource("/mainpkg/mancityLogo.png"));
+		JLabel mancityIconLabel = new JLabel(mancityIcon);
+		mancityIconLabel.setBounds(473, 250, 297, 300);
+		teamPanel.add(mancityIconLabel);
+		
+		//mancity lineup
+		mancityButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JFrame mancityFrame = new JFrame();
+				JPanel mancityPanel = new JPanel();
+				Color mancityPanelColor = new Color(19, 190, 232);
+				mancityFrame.setSize(1300, 800);
+				mancityFrame.add(mancityPanel);
+				mancityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				mancityPanel.setLayout(null);
+				mancityPanel.setBackground(mancityPanelColor);
+				
+				mancityFrame.setVisible(true);
+
+				
+				
+				
+				frame.setVisible(false);
+				teamFrame.setVisible(false);
+			}
+			
+		});
+		//mancity lineup
+		
+		JButton rmdButton = new JButton("Real Madrid C.F.");
+		rmdButton.setBounds(1050, 600, 200, 25);
+		teamPanel.add(rmdButton);
+		
+		ImageIcon rmdIcon = new ImageIcon(getClass().getResource("/mainpkg/rmdLogo.png"));
+		JLabel rmdIconLabel = new JLabel(rmdIcon);
+		rmdIconLabel.setBounds(1000, 250, 297, 300);
+		teamPanel.add(rmdIconLabel);
+		
+		//real madrid lineup
+		rmdButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFrame rmdFrame = new JFrame();
+				JPanel rmdPanel = new JPanel();
+				Color rmdPanelColor = new Color(231, 241, 180);
+				rmdFrame.setSize(1300, 800);
+				rmdFrame.add(rmdPanel);
+				rmdFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				rmdPanel.setLayout(null);
+				rmdPanel.setBackground(rmdPanelColor);
+				
+				
+				rmdFrame.setVisible(true);
+				frame.setVisible(false);
+				teamFrame.setVisible(false);
+				
+			}
+		});
+		//real madrid lineup
+		
+		teamFrame.setVisible(true);
 	}
-	
-	
 	
 }
