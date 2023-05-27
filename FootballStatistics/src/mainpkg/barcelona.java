@@ -1,4 +1,4 @@
-package mainpkg;
+package mainPkg;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
 public class barcelona implements ActionListener{
 	
 	private static JPanel panel;
@@ -35,7 +34,7 @@ public class barcelona implements ActionListener{
 		frame = new JFrame();
 		
 		frame.setSize(1300, 800);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(panel);
 		
 		panel.setLayout(null);
@@ -55,10 +54,20 @@ public class barcelona implements ActionListener{
 		nameLabel = new JLabel("Aleksandr Khachatryan");
 		nameLabel.setBounds(1133, 730, 140, 20);
 		panel.add(nameLabel);
+	
+		
+	/*	ImageIcon menuImg = new ImageIcon("/mainPkg/championsleague.png");
+		JLabel menuImgLabel = new JLabel(menuImg);
+		menuImgLabel.setBounds(10, 10, 200, 200);
+		panel.add(menuImgLabel);		*/
+		
+		JLabel newNameLabel = new JLabel("  Author: Aleksandr Khachatryan");
+		newNameLabel.setBounds(290, 20, 1000, 400);
+		newNameLabel.setFont(new Font("Serif Bold", Font.BOLD, 40));
+		panel.add(newNameLabel);
 		
 		frame.setVisible(true);
 		
-
 	}
 
 	@Override
@@ -68,7 +77,7 @@ public class barcelona implements ActionListener{
 		JPanel teamPanel = new JPanel();
 		
 		teamFrame.setSize(1300, 800);
-		teamFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//teamFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		teamFrame.add(teamPanel);
 		
 		teamPanel.setLayout(null);
@@ -79,7 +88,7 @@ public class barcelona implements ActionListener{
 		teamPanelLabel.setFont(new Font("Serif Bold", Font.BOLD, 35));
 		teamPanel.add(teamPanelLabel);
 		
-		ImageIcon barca_img = new ImageIcon(getClass().getResource("/mainpkg/barcaLogo.png"));
+		ImageIcon barca_img = new ImageIcon(getClass().getResource("/mainPkg/barcaLogo.png"));
 		JLabel barcaImgLabel = new JLabel(barca_img);
 		barcaImgLabel.setBounds(7, 250, 297, 300);
 		teamPanel.add(barcaImgLabel);
@@ -98,12 +107,12 @@ public class barcelona implements ActionListener{
 				Color barcaPanelColor = new Color(228, 15, 15);
 				
 				barcaFrame.setSize(1300, 800);
-				barcaFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
 				barcaFrame.add(barcaPanel);
 				barcaPanel.setLayout(null);
 				barcaPanel.setBackground(barcaPanelColor);
 				
-				ImageIcon img = new ImageIcon(getClass().getResource("/mainpkg/barcaLogo.png"));
+				ImageIcon img = new ImageIcon(getClass().getResource("/mainPkg/barcaLogo.png"));
 				JLabel imgLabel = new JLabel(img);
 				imgLabel.setBounds(100, 250, 297, 300);
 				barcaPanel.add(imgLabel);
@@ -118,12 +127,12 @@ public class barcelona implements ActionListener{
 				barcaManager.setFont(new Font("Serif Bold", Font.BOLD, 20));
 				barcaPanel.add(barcaManager);
 				
-				ImageIcon xavi = new ImageIcon(getClass().getResource("/mainpkg/xavi.png"));
+				ImageIcon xavi = new ImageIcon(getClass().getResource("/mainPkg/xavi.png"));
 				JLabel xaviLabel = new JLabel(xavi);
 				xaviLabel.setBounds(75, -25, 297, 300);
 				barcaPanel.add(xaviLabel);
 				
-				ImageIcon lewandowski = new ImageIcon(getClass().getResource("/mainpkg/lewandowski.png"));
+				ImageIcon lewandowski = new ImageIcon(getClass().getResource("/mainPkg/lewandowski.png"));
 				JLabel lewiLabel = new JLabel(lewandowski);
 				lewiLabel.setBounds(800, -45, 297, 300);
 				barcaPanel.add(lewiLabel);
@@ -157,7 +166,7 @@ public class barcelona implements ActionListener{
 					}
 				});
 				
-				ImageIcon torres = new ImageIcon(getClass().getResource("/mainpkg/torres.png"));
+				ImageIcon torres = new ImageIcon(getClass().getResource("/mainPkg/torres.png"));
 				JLabel torresLabel = new JLabel(torres);
 				torresLabel.setBounds(550, -5, 297, 300);
 				barcaPanel.add(torresLabel);
@@ -193,7 +202,7 @@ public class barcelona implements ActionListener{
 				});
 				
 				
-				ImageIcon raphinha = new ImageIcon(getClass().getResource("/mainpkg/raphinha.png"));
+				ImageIcon raphinha = new ImageIcon(getClass().getResource("/mainPkg/raphinha.png"));
 				JLabel raphiLabel = new JLabel(raphinha);
 				raphiLabel.setBounds(1053, -5, 297, 300);
 				barcaPanel.add(raphiLabel);
@@ -228,7 +237,7 @@ public class barcelona implements ActionListener{
 				});
 				
 				
-				ImageIcon gavi = new ImageIcon(getClass().getResource("/mainpkg/gavi.png"));
+				ImageIcon gavi = new ImageIcon(getClass().getResource("/mainPkg/gavi.png"));
 				JLabel gaviLabel = new JLabel(gavi);
 				gaviLabel.setBounds(670, 160, 297, 300);
 				barcaPanel.add(gaviLabel);
@@ -265,7 +274,7 @@ public class barcelona implements ActionListener{
 				});
 				
 				
-				ImageIcon frankie = new ImageIcon(getClass().getResource("/mainpkg/frankie.png"));
+				ImageIcon frankie = new ImageIcon(getClass().getResource("/mainPkg/frankie.png"));
 				JLabel frankieLabel = new JLabel(frankie);
 				frankieLabel.setBounds(920, 160, 297, 300);
 				barcaPanel.add(frankieLabel);
@@ -300,7 +309,7 @@ public class barcelona implements ActionListener{
 					}
 				});
 				
-				ImageIcon busquets = new ImageIcon(getClass().getResource("/mainpkg/busquets.png"));
+				ImageIcon busquets = new ImageIcon(getClass().getResource("/mainPkg/busquets.png"));
 				JLabel busqLabel = new JLabel(busquets);
 				busqLabel.setBounds(800, 255, 297, 300);
 				barcaPanel.add(busqLabel);
@@ -333,7 +342,7 @@ public class barcelona implements ActionListener{
 					}
 				});
 				
-				ImageIcon christ = new ImageIcon(getClass().getResource("/mainpkg/christensen.png"));
+				ImageIcon christ = new ImageIcon(getClass().getResource("/mainPkg/christensen.png"));
 				JLabel christLabel = new JLabel(christ);
 				christLabel.setBounds(670, 380, 297, 300);
 				barcaPanel.add(christLabel);
@@ -368,7 +377,7 @@ public class barcelona implements ActionListener{
 					}
 				});
 				
-				ImageIcon eric = new ImageIcon(getClass().getResource("/mainpkg/ericgarcia.png"));
+				ImageIcon eric = new ImageIcon(getClass().getResource("/mainPkg/ericgarcia.png"));
 				JLabel ericLabel = new JLabel(eric);
 				ericLabel.setBounds(920, 380, 297, 300);
 				barcaPanel.add(ericLabel);
@@ -403,7 +412,7 @@ public class barcelona implements ActionListener{
 					}
 				});
 				
-				ImageIcon kounde = new ImageIcon(getClass().getResource("/mainpkg/kounde.png"));
+				ImageIcon kounde = new ImageIcon(getClass().getResource("/mainPkg/kounde.png"));
 				JLabel koundeLabel = new JLabel(kounde);
 				koundeLabel.setBounds(1053, 320, 297, 300);
 				barcaPanel.add(koundeLabel);
@@ -437,7 +446,7 @@ public class barcelona implements ActionListener{
 					}
 				});
 				
-				ImageIcon alba = new ImageIcon(getClass().getResource("/mainpkg/alba.png"));
+				ImageIcon alba = new ImageIcon(getClass().getResource("/mainPkg/alba.png"));
 				JLabel albaLabel = new JLabel(alba);
 				albaLabel.setBounds(550, 320, 297, 300);
 				barcaPanel.add(albaLabel);
@@ -470,7 +479,7 @@ public class barcelona implements ActionListener{
 					}
 				});
 				
-				ImageIcon ter = new ImageIcon(getClass().getResource("/mainpkg/terstegan.png"));
+				ImageIcon ter = new ImageIcon(getClass().getResource("/mainPkg/terstegan.png"));
 				JLabel terLabel = new JLabel(ter);
 				terLabel.setBounds(800, 520, 297, 300);
 				barcaPanel.add(terLabel);
@@ -504,8 +513,8 @@ public class barcelona implements ActionListener{
 				});
 				
 				barcaFrame.setVisible(true);
-				teamFrame.setVisible(false);
-				frame.setVisible(false);
+			//	teamFrame.setVisible(false);
+			//	frame.setVisible(false);
 				
 			}
 
@@ -518,7 +527,7 @@ public class barcelona implements ActionListener{
 		mancityButton.setBounds(510, 600, 200, 25);
 		teamPanel.add(mancityButton);
 		
-		ImageIcon mancityIcon = new ImageIcon(getClass().getResource("/mainpkg/mancityLogo.png"));
+		ImageIcon mancityIcon = new ImageIcon(getClass().getResource("/mainPkg/mancityLogo.png"));
 		JLabel mancityIconLabel = new JLabel(mancityIcon);
 		mancityIconLabel.setBounds(473, 250, 297, 300);
 		teamPanel.add(mancityIconLabel);
@@ -534,7 +543,7 @@ public class barcelona implements ActionListener{
 				Color mancityPanelColor = new Color(19, 190, 232);
 				mancityFrame.setSize(1300, 800);
 				mancityFrame.add(mancityPanel);
-				mancityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			//	mancityFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				mancityPanel.setLayout(null);
 				mancityPanel.setBackground(mancityPanelColor);
 				
@@ -554,7 +563,7 @@ public class barcelona implements ActionListener{
 		rmdButton.setBounds(1050, 600, 200, 25);
 		teamPanel.add(rmdButton);
 		
-		ImageIcon rmdIcon = new ImageIcon(getClass().getResource("/mainpkg/rmdLogo.png"));
+		ImageIcon rmdIcon = new ImageIcon(getClass().getResource("/mainPkg/rmdLogo.png"));
 		JLabel rmdIconLabel = new JLabel(rmdIcon);
 		rmdIconLabel.setBounds(1000, 250, 297, 300);
 		teamPanel.add(rmdIconLabel);
@@ -568,14 +577,14 @@ public class barcelona implements ActionListener{
 				Color rmdPanelColor = new Color(231, 241, 180);
 				rmdFrame.setSize(1300, 800);
 				rmdFrame.add(rmdPanel);
-				rmdFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//		rmdFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				rmdPanel.setLayout(null);
 				rmdPanel.setBackground(rmdPanelColor);
 				
 				
 				rmdFrame.setVisible(true);
-				frame.setVisible(false);
-				teamFrame.setVisible(false);
+			//	frame.setVisible(false);
+			//	teamFrame.setVisible(false);
 				
 			}
 		});
@@ -584,4 +593,3 @@ public class barcelona implements ActionListener{
 		teamFrame.setVisible(true);
 	}
 	
-}
