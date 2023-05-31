@@ -547,6 +547,12 @@ public class barcelona implements ActionListener{
 				mancityPanel.setLayout(null);
 				mancityPanel.setBackground(mancityPanelColor);
 				
+				JLabel mcs = new JLabel("Coming Soon...");
+				mcs.setBounds(500, 150, 500, 500);
+				mcs.setFont(new Font("Serif Bold", Font.BOLD, 45));
+				mancityPanel.add(mcs);
+				
+				
 				mancityFrame.setVisible(true);
 
 				
@@ -581,6 +587,10 @@ public class barcelona implements ActionListener{
 				rmdPanel.setLayout(null);
 				rmdPanel.setBackground(rmdPanelColor);
 				
+				JLabel rcs = new JLabel("Coming Soon...");
+				rcs.setBounds(500, 150, 500, 500);
+				rcs.setFont(new Font("Serif Bold", Font.BOLD, 45));
+				rmdPanel.add(rcs);
 				
 				rmdFrame.setVisible(true);
 			//	frame.setVisible(false);
