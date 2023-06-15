@@ -1,3 +1,3 @@
-# Rand
+# Apop's Code
 
-random code that i be writing
+some work that i have done
