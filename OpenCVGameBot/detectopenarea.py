@@ -23,36 +23,3 @@ def detect_open_area(image):
         return x, y, w, h
 
     return None
-
-# Main loop
-while True:
-    # Capture a screenshot of the game screen
-    screenshot = pyautogui.screenshot()
-
-    # Convert the screenshot to a numpy array
-    screenshot_np = np.array(screenshot)
-
-    # Convert the color channels from BGR to RGB
-    screenshot_rgb = cv2.cvtColor(screenshot_np, cv2.COLOR_BGR2RGB)
-
-    # Detect the open area on the log and get its bounding box
-    bounding_box = detect_open_area(screenshot_rgb)
-
-    if bounding_box is not None:
-        x, y, w, h = bounding_box
-
-        # Draw a bounding box around the open area
-        cv2.rectangle(screenshot_np, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-        # Display the screenshot with the bounding box
-        cv2.imshow('Game Screen', screenshot_np)
-        cv2.waitKey(1)
-
-        # Simulate a click in the center of the open area
-        center_x = x + w // 2
-        center_y = y + h // 2
-        pyautogui.click(center_x, center_y)
-
-    else:
-        # No open area detected, continue with other actions or break the loop
-        pass
